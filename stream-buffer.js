@@ -1,21 +1,21 @@
 const http = require('http')
-const fs = require('fs')
+const fs= require('fs')
+const { buffer } = require('stream/consumers')
 
 const server = http.createServer()
 
 server.on('request',(req,res)=>{
-    if(req.url === '/file-read' && req.method === "GET");
-    const readableStream = fs.createReadStream(process.cwd() + './readText/read.txt')
-
-    readableStream.on('data',(buffer)=>{
+    if(req.url === '/read-file' && req.method === "GET");
+    const readableFile = fs.createReadStream(process.cwd() + '/readText/read.txt')
+    readableFile.on('data',(buffer)=>{
         res.write(buffer)
     })
-    readableStream.on('end',()=>{
+    readableFile.on('end',()=>{
 
-        res.end('Hello World!')
+        res.end('Hello world')
     })
 })
 
 server.listen(5000,()=>{
-    console.log("Listening on port 5000")
+    console.log("Server is running at port 5000")
 })
